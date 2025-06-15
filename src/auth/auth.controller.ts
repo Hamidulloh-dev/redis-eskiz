@@ -20,8 +20,12 @@ export class AuthController {
   }
 
   @Post('register')
-  async register(@Body() dto: CreateAuthDto) {
-    const respons = this.authService.register()
-    return respons
+  async register(@Body() dto: CreateAuthDto, @Res({passthrough: true}) res: Response) {
+    const token = this.authService.register(dto)
+    res.cookie('token', token, {
+      maxAge: 1.1 * 60 * 60 * 1000,
+      httpOnly: true
+    })
+    return token
   }
 }

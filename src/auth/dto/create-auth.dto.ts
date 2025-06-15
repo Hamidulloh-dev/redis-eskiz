@@ -5,4 +5,6 @@ export class CreateAuthDto {
     phone_number: string
     @IsString()
     password: string
+    @IsString()
+    session_token: string
 }
